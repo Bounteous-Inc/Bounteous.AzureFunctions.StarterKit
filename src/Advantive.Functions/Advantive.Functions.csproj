@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Bounteous.Core" Version="0.0.2" />
+      <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
+      <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage.Queues" Version="5.3.4" />
+      <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.6.0" />
+      <PackageReference Include="Serilog.Sinks.AzureLogAnalytics" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Advantive.Common\Advantive.Common.csproj" />
+      <ProjectReference Include="..\Advantive.Services\Advantive.Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="appsettings.json" />
+      <Content Include="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+</Project>
