@@ -17,6 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\ci-build.yml = .github\workflows\ci-build.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "startup", "startup", "{41E0E681-B35F-4FA5-8EBF-6E05F85FA2E3}"
+	ProjectSection(SolutionItems) = preProject
+		start-mssql.sh = start-mssql.sh
+		stop-mssql.sh = stop-mssql.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
