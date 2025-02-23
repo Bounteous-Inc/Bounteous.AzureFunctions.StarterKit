@@ -1,30 +1,26 @@
+using Advantive.Services.Constants;
 using Advantive.Services.Context;
-using Advantive.Unit.Tests.Fixtures;
+using Advantive.Unit.Tests.Containers;
 using Bounteous.Core;
-using Bounteous.Core.DI;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Advantive.Unit.Tests.Context;
 
-[Collection("Database collection")]
+[Collection("MsSql Server Collection")]
 public class DbContextFactoryTests
 {
-    private readonly SqlServerCollection collection;
+    private readonly IDbContextFactory dbContextFactory; 
 
-    public DbContextFactoryTests(SqlServerCollection collection)
+    public DbContextFactoryTests(MsSqlContainerFixture msSql)
     {
-        this.collection = collection;
-        var services = new ServiceCollection();
-        IoC.ConfigureServiceCollection(services);
-        services.ReplaceSingleton(collection.ConnectionStringProvider);
+        // Ensure the database is created before resolving the DbContextFactory
+        _ = msSql.WithDatabase(Schemas.Advantive).GetAwaiter().GetResult();
+        dbContextFactory = IoC.Resolve<IDbContextFactory>();
     }
 
     [Fact]
     public void CanConnectToDatabase()
     {
-        var factory = IoC.Resolve<IDbContextFactory>();
-        using var context = factory.Create();
-        
+        using var context = dbContextFactory.Create();
         Assert.True(context.Database.CanConnect(), "Unable to connect to the database.");
     }
 }

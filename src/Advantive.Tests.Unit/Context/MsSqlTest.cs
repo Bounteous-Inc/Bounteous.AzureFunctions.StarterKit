@@ -12,7 +12,8 @@ public class MsSqlTest
     public MsSqlTest(MsSqlContainerFixture msSql)
     {
         this.msSql = msSql;
-        msSql.WithDatabase(Schemas.Advantive);
+        // Ensure the database is created before running the test
+        _ = msSql.WithDatabase(Schemas.Advantive).GetAwaiter().GetResult();
     }
 
     [Fact]

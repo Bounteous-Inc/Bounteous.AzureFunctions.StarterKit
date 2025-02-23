@@ -1,15 +1,14 @@
 using Bounteous.Core.Validations;
-using Microsoft.Data.SqlClient;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
+using Bounteous.Data;
+using Dapper;
 using Testcontainers.MsSql;
 
 namespace Advantive.Unit.Tests.Containers;
 
 public class MsSqlContainerFixture : ISqlContainer, IAsyncLifetime
 {
-    public MsSqlContainer Server { get; private set; }
-    public   string ConnectionString { get; private set; }
+    public MsSqlContainer Server { get; private set; } = null!;
+    public string ConnectionString { get; private set; } = null!;
 
     public async Task InitializeAsync()
     {
@@ -21,27 +20,27 @@ public class MsSqlContainerFixture : ISqlContainer, IAsyncLifetime
     }
 
     public async Task DisposeAsync()
-        => await Server.DisposeAsync();
+    {
+        if (Server != null)
+        {
+            await Server.DisposeAsync();
+        }
+    }
 
-    public ISqlContainer WithDatabase(string databaseName)
-    {        
+    public async Task<ISqlContainer> WithDatabase(string databaseName)
+    {
         Validate.Begin().IsNotEmpty(databaseName, nameof(databaseName)).Check();
-        ExecuteSql($"CREATE DATABASE [{databaseName}]");
-        ConnectionString = Server.GetConnectionString().Replace("master", databaseName);
+        await using var connection = this.OpenMsSqlConnection();
+        await connection.CreateDatabaseIfNotExists(databaseName);
         return this;
     }
 
-    public ISqlContainer RunSql(string sql)
+    public async Task<ISqlContainer> RunSql(string sql)
     {
-        ExecuteSql(sql);
+        await using var connection = this.OpenMsSqlConnection();
+        await connection.ExecuteAsync(sql);
         return this;
     }
-    
-    private void ExecuteSql(string sql)
-    {
-        using var connection = new SqlConnection(ConnectionString);
-        connection.Open();
-        var command = new SqlCommand(sql, connection);
-        command.ExecuteNonQuery();
-    }
+
+    public IConnectionStringProvider ConnectionStringProvider { get; } = null!;
 }
