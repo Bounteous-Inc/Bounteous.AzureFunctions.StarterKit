@@ -23,6 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "startup", "startup", "{41E0
 		stop-mssql.sh = stop-mssql.sh
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sql", "sql", "{C92EA4FF-352B-4F83-80EB-96394B20596A}"
+	ProjectSection(SolutionItems) = preProject
+		sql\sample.dll.sql = sql\sample.dll.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -10,10 +10,8 @@ public class Startup : FunctionsStartup
     public override void Configure(IFunctionsHostBuilder builder)
     {
         builder.Services.AddLogging(loggingBuilder =>
-            SerilogLoggingBuilderExtensions.AddSerilog(loggingBuilder));
+            loggingBuilder.AddSerilog());
 
         IoC.ConfigureServiceCollection(builder.Services);
-
-        builder.Services.AutoRegister(GetType().Assembly);
     }
 }

@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Bounteous.Core" Version="0.0.3" />
+      <PackageReference Include="Bounteous.Core" Version="0.0.4" />
       <PackageReference Include="Bounteous.Data" Version="0.0.4" />
     </ItemGroup>
 

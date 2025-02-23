@@ -1,11 +1,13 @@
+using Advantive.Services.Context;
 using Bounteous.Core;
+using Bounteous.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Advantive.Services;
 
-public class AppStartup1 : IAppStartup
+public class AppStartup : IAppStartup
 {
     public IConfiguration StartUp(IServiceCollection collection)
     {
@@ -13,6 +15,9 @@ public class AppStartup1 : IAppStartup
         var appConfig = builder.Build();
 
         collection.AddSingleton<IApplicationConfig>(appConfig);
+        collection.AddSingleton<IConnectionStringProvider, LocalConnectionStringProvider>();
+        collection.AddSingleton<IConnectionBuilder, ConnectionBuilder>();
+        collection.AddSingleton<IDbContextFactory, DbContextFactory>();
         collection.AutoRegister(GetType().Assembly);
         
         return builder.Configuration;
