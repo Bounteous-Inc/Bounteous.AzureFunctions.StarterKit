@@ -1,3 +1,4 @@
+using Advantive.Services.Constants;
 using Advantive.Unit.Tests.Containers;
 using Bounteous.Core.Validations;
 
@@ -11,6 +12,7 @@ public class MsSqlTest
     public MsSqlTest(MsSqlContainerFixture msSql)
     {
         this.msSql = msSql;
+        msSql.WithDatabase(Schemas.Advantive);
     }
 
     [Fact]
