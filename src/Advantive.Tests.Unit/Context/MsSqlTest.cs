@@ -17,10 +17,13 @@ public class MsSqlTest
     }
 
     [Fact]
-    public void MsSql_Test()
+    public async Task MsSql_Test()
     {
         Validate.Begin().IsNotNull(msSql, nameof(msSql)).Check()
             .IsNotEmpty(msSql.Server.GetConnectionString(), nameof(msSql.Server.GetConnectionString))
             .Check();
+        
+        await msSql.RunSql("SELECT SYSDATETIME()");
+        
     }
 }

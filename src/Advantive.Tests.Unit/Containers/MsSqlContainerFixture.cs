@@ -20,18 +20,15 @@ public class MsSqlContainerFixture : ISqlContainer, IAsyncLifetime
     }
 
     public async Task DisposeAsync()
-    {
-        if (Server != null)
-        {
-            await Server.DisposeAsync();
-        }
-    }
+        => await Server.DisposeAsync();
 
     public async Task<ISqlContainer> WithDatabase(string databaseName)
     {
         Validate.Begin().IsNotEmpty(databaseName, nameof(databaseName)).Check();
         await using var connection = this.OpenMsSqlConnection();
         await connection.CreateDatabaseIfNotExists(databaseName);
+        ConnectionString = ConnectionString.Replace("master", databaseName);
+        ConnectionStringProvider.Configure(ConnectionString);
         return this;
     }
 
@@ -41,6 +38,4 @@ public class MsSqlContainerFixture : ISqlContainer, IAsyncLifetime
         await connection.ExecuteAsync(sql);
         return this;
     }
-
-    public IConnectionStringProvider ConnectionStringProvider { get; } = null!;
 }

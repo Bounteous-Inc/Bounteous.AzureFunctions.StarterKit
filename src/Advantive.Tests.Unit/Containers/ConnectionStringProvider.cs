@@ -2,7 +2,10 @@ using Bounteous.Data;
 
 namespace Advantive.Unit.Tests.Containers;
 
-public class ConnectionStringProvider(ISqlContainer container) : IConnectionStringProvider
+public class ConnectionStringProvider: IConnectionStringProvider
 {
-    public string ConnectionString => container.ConnectionString;
+    private static string connectionString = string.Empty;
+
+    public static void Configure(string value) => connectionString = value;
+    public string ConnectionString => connectionString;
 }
