@@ -1,5 +1,4 @@
 using Advantive.Services.Services;
-using Bounteous.Core;
 using Microsoft.Azure.WebJobs;
 
 namespace Advantive.Functions;
@@ -15,10 +14,9 @@ public class ExportProjectFunction
 
     [FunctionName("ExportProjectFunction")]
     public static void Run(
-        [QueueTrigger("myqueue-items", Connection = "AzureWebJobsStorage")] string projectId)
+        [QueueTrigger("myqueue-items", Connection = "AzureWebJobsStorage")]
+        string projectId)
     {
-        
+
     }
-    
-    
 }

@@ -4,15 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Advantive.Unit.Tests.Utilities;
 
-public class TestFunctionsHostBuilder : IFunctionsHostBuilder, IFunctionsConfigurationBuilder
+public class TestFunctionsHostBuilder(IServiceCollection services)
+    : IFunctionsHostBuilder, IFunctionsConfigurationBuilder
 {
-    public TestFunctionsHostBuilder(IServiceCollection services)
-    {
-        Services = services;
-    }
-
-    public IServiceCollection Services { get; }
+    public IServiceCollection Services { get; } = services;
 
     public IConfiguration Configuration => new ConfigurationBuilder().Build();
-    public IConfigurationBuilder ConfigurationBuilder { get; }
+    public IConfigurationBuilder ConfigurationBuilder { get; } = null!;
 }
