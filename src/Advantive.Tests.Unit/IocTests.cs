@@ -21,7 +21,7 @@ public class IocTests
     public void ApplicationConfig() => HasService<IApplicationConfig>();
     
     [Fact]
-    public void HelloService() => HasService<IHelloService>();
+    public void HelloService() => HasService<IExportService>();
 
     private static void HasService<T>() => IoC.Resolve<T>().Should().NotBeNull();
 }

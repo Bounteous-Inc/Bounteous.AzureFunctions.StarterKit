@@ -1,22 +1,29 @@
+using Advantive.Common.Models;
 using Advantive.Services.Services;
+using Bounteous.Core;
 using Microsoft.Azure.WebJobs;
 
 namespace Advantive.Functions;
 
 public class ExportProjectFunction
 {
-    private readonly IHelloService helloService;
-    
-    public ExportProjectFunction(IHelloService helloService)
+    private readonly IExportService exportService;
+
+    public ExportProjectFunction() : this (IoC.Resolve<IExportService>())
     {
-        this.helloService = helloService;
+        
+    }
+    
+    public ExportProjectFunction(IExportService exportService)
+    {
+        this.exportService = exportService;
     }
 
     [FunctionName("ExportProjectFunction")]
-    public static void Run(
+    public async Task Run(
         [QueueTrigger("myqueue-items", Connection = "AzureWebJobsStorage")]
         string projectId)
     {
-
+        await exportService.ExportProjectAsync(new ExportProjectRequest());
     }
 }

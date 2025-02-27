@@ -21,6 +21,7 @@ public class DbContextFactoryTests
         IoC.ConfigureServiceCollection(collection);
         // Ensure the database is created before resolving the DbContextFactory
         _ = msSql.WithDatabase(Schemas.Advantive).GetAwaiter().GetResult();
+        
         _ = IoC.Resolve<IApplicationConfig>();
     }
 
