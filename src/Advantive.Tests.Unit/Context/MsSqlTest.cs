@@ -1,15 +1,15 @@
 using Advantive.Services.Constants;
-using Advantive.Unit.Tests.Containers;
 using Bounteous.Core.Validations;
+using Bounteous.xUnit.Container.MsSql.Containers;
 
 namespace Advantive.Unit.Tests.Context;
 
-[Collection("MsSql Server Collection")]
+[Collection("MsSqlContainer")]
 public class MsSqlTest
 {
-    private readonly MsSqlContainerFixture msSql;
+    private readonly MsSqlServerContainer msSql;
 
-    public MsSqlTest(MsSqlContainerFixture msSql)
+    public MsSqlTest(MsSqlServerContainer msSql)
     {
         this.msSql = msSql;
         // Ensure the database is created before running the test
@@ -24,6 +24,5 @@ public class MsSqlTest
             .Check();
         
         await msSql.RunSql("SELECT SYSDATETIME()");
-        
     }
 }
