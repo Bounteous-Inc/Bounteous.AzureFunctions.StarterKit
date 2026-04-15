@@ -7,9 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Bounteous.Core" Version="0.0.4" />
+      <PackageReference Include="Bounteous.Core" Version="0.0.16" />
       <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
-      <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage.Queues" Version="5.3.4" />
+      <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage.Queues" Version="5.3.7" />
       <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.6.0" />
       <PackageReference Include="Serilog.Sinks.AzureLogAnalytics" Version="7.0.0" />
     </ItemGroup>
