@@ -10,7 +10,7 @@
     <ItemGroup>
         <PackageReference Include="AwesomeAssertions" Version="9.4.0" />
         <PackageReference Include="Bounteous.xUnit.Accelerator" Version="0.0.7" />
-        <PackageReference Include="coverlet.collector" Version="8.0.1">
+        <PackageReference Include="coverlet.collector" Version="10.0.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
